@@ -1,6 +1,6 @@
 # Quiz API
 
-Welcome to the API documentation for the Quiz API. This API allows you to fetch random questions, store them in a database, and play the quiz by answering the questions.
+This is a Spring Boot REST API that allows you to fetch random questions, store them in a database, and play the quiz by answering the questions.
 
 ## Table of Contents
 - [Getting Started](#getting-started)
@@ -12,89 +12,50 @@ Welcome to the API documentation for the Quiz API. This API allows you to fetch 
 
 ## Getting Started
 
-To get started using the Quiz API, follow the steps below:
+To get started with the Quiz API, follow the instructions below:
 
-1. Clone the repository:
-
-```shell
-git clone <repository_url>
-```
-
-2. Navigate to the project directory:
-
-```shell
-cd quiz-api
-```
-
-3. Build and run the application using Maven:
-
-```shell
-mvn spring-boot:run
-```
-
-The API will be accessible at `http://localhost:8080`.
+1. Clone the repository.
+2. Build the project using Maven: `mvn clean install`.
+3. Run the application: `mvn spring-boot:run`.
+4. The API will be accessible at `http://localhost:8080`.
 
 ## Authentication
 
-The Quiz API does not require authentication.
+The Quiz API does not require authentication. All endpoints are accessible without authentication.
 
 ## Endpoints
 
-The following endpoints are available in the Quiz API:
+The Quiz API provides the following endpoints:
 
-### Fetch Random Questions
+- `GET /play`: Fetches a question along with its ID. Returns the following response:
+    ```
+    {
+        "question_id": <question id>,
+        "question": <question text>
+    }
+    ```
 
-```
-GET /api/questions
-```
-
-This endpoint fetches 5 random questions from the external API endpoint `https://jservice.io/api/random` and stores them in the database.
-
-### Play Quiz
-
-```
-GET /api/play
-```
-
-This endpoint returns a random question along with its ID. The response will be in the following format:
-
-```json
-{
-  "question_id": 1,
-  "question": "Who is the founder of SpaceX?"
-}
-```
-
-### Answer Question
-
-```
-POST /api/next
-```
-
-This endpoint allows you to submit an answer to a question. The payload should be in the following format:
-
-```json
-{
-  "question_id": 1,
-  "answer": "Elon Musk"
-}
-```
-
-The response will contain the correct answer to the question and the next question:
-
-```json
-{
-  "correct_answer": "Elon Musk",
-  "next_question": {
-    "question_id": 2,
-    "question": "In which year did World War II end?"
-  }
-}
-```
+- `POST /next`: Submits an answer for a question. The payload should be in the following format:
+    ```
+    {
+        "question_id": <id>,
+        "answer": <answer>
+    }
+    ```
+  Returns the following response:
+    ```
+    {
+        "correct_answer": <correct answer to question>,
+        "next_question": {
+            "question_id": <question id>,
+            "question": <question text>
+        }
+    }
+    ```
 
 ## Error Handling
 
-The Quiz API handles errors using appropriate HTTP status codes and error messages in the response body. In case of an error, the response will include an error message explaining the issue.
+The Quiz API handles various error scenarios and returns appropriate error responses. The error responses follow the standard HTTP status codes and include a descriptive error message.
 
 ## Examples
 
@@ -123,6 +84,55 @@ POST /api/next
 }
 ```
 
+## SQL Schema
+
+The following SQL schema is used to create the necessary tables for storing the questions and categories in the database:
+
+```sql
+CREATE TABLE IF NOT EXISTS categories (
+    id INT PRIMARY KEY,
+    category_id INT,
+    title VARCHAR(255),
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    clues_count INT
+);
+
+CREATE TABLE IF NOT EXISTS questions (
+    id INT PRIMARY KEY,
+    question_id INT NOT NULL,
+    answer VARCHAR(255),
+    question VARCHAR(255),
+    question_value INT,
+    air_date TIMESTAMP,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    category_id INT,
+    game_id INT,
+    invalid_count INT,
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+```
+
+Please make sure to configure your PostgreSQL database connection details accordingly in the application.properties file.
+
+## Dependencies
+
+The Quiz API uses the following dependencies, defined in the `pom.xml` file:
+
+- Spring Boot Starter Web
+- Spring Boot Starter Data JPA
+- Spring Boot Starter JDBC
+- H2 Database
+- Lombok
+- Spring Boot Starter Test
+- Spring Boot Starter Validation
+
 ## Contributing
 
-Contributions to the Quiz API are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
+Contributions to the Quiz API are welcome! If you find a bug, have an improvement suggestion, or want to add a new feature, please open an issue or submit a pull request.
+
+
+---
+
+Feel free to modify this README according to your project's specific requirements and add any additional sections or details as needed.
