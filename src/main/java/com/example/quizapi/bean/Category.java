@@ -1,16 +1,24 @@
 package com.example.quizapi.bean;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "categories")
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@Builder
 public class Category {
     @Id
+    @GeneratedValue
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private int id;
 
     @Column(name = "category_id", nullable = false)
@@ -19,10 +27,10 @@ public class Category {
     private String title;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 
     @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
+    private ZonedDateTime updatedAt;
 
     @Column(name = "clues_count", nullable = false)
     private int cluesCount;

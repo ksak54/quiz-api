@@ -1,16 +1,23 @@
 package com.example.quizapi.bean;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "questions")
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
+@Builder
 public class QuizQuestion {
 
     @Id
+    @GeneratedValue
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     private int id;
 
     @Column(name = "question_id", nullable = false)
@@ -23,21 +30,20 @@ public class QuizQuestion {
     @Column(name = "question_value")
     private int questionValue;
 
-    private LocalDateTime airdate;
+    @Column(name = "air_date")
+    private ZonedDateTime airdate;
 
-    private LocalDateTime created_at;
+    @Column(name = "created_at")
+    private ZonedDateTime createdAt;
 
-    private LocalDateTime updated_at;
-
-    @Column(name = "category_id")
-    private int categoryId;
+    @Column(name = "updated_at")
+    private ZonedDateTime updatedAt;
 
     private int game_id;
 
     private Integer invalid_count;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Category category;
 }
 

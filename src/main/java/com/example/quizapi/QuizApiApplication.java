@@ -1,28 +1,29 @@
 package com.example.quizapi;
 
-import com.example.quizapi.service.startup.ApiIntegrationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
-import sun.tools.jar.CommandLine;
 
 @SpringBootApplication
+@Slf4j
 public class QuizApiApplication implements CommandLineRunner {
+
+	private final InitGame initGame;
 
 	public QuizApiApplication(InitGame initGame) {
 		this.initGame = initGame;
 	}
 
-	private final InitGame initGame;
-
 	public static void main(String[] args) {
-		ApplicationContext applicationContext = SpringApplication.run(QuizApiApplication.class, args);
+		SpringApplication.run(QuizApiApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		log.info("************************Initializing Game**************************");
 		initGame.initGame();
+		log.info("************************Start Playing the Game**************************");
+
 	}
 }
