@@ -1,72 +1,89 @@
-# quiz-api
-Quiz API
+# Quiz API
+
 Welcome to the API documentation for the Quiz API. This API allows you to fetch random questions, store them in a database, and play the quiz by answering the questions.
 
-Table of Contents
-Getting Started
-Authentication
-Endpoints
-Error Handling
-Examples
-Contributing
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Authentication](#authentication)
+- [Endpoints](#endpoints)
+- [Error Handling](#error-handling)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
 
-Getting Started
+## Getting Started
+
 To get started using the Quiz API, follow the steps below:
 
-Clone the repository:
-shell
-Copy code
-git clone <repository_url>
-Navigate to the project directory:
-shell
-Copy code
-cd quiz-api
-Build and run the application using Maven:
-shell
-Copy code
-mvn spring-boot:run
-The API will be accessible at http://localhost:8080.
+1. Clone the repository:
 
-Authentication
+```shell
+git clone <repository_url>
+```
+
+2. Navigate to the project directory:
+
+```shell
+cd quiz-api
+```
+
+3. Build and run the application using Maven:
+
+```shell
+mvn spring-boot:run
+```
+
+The API will be accessible at `http://localhost:8080`.
+
+## Authentication
+
 The Quiz API does not require authentication.
 
-Endpoints
+## Endpoints
+
 The following endpoints are available in the Quiz API:
 
-Fetch Random Questions
-bash
-Copy code
-GET /api/questions
-This endpoint fetches 5 random questions from the external API endpoint https://jservice.io/api/random and stores them in the database.
+### Fetch Random Questions
 
-Play Quiz
-bash
-Copy code
+```
+GET /api/questions
+```
+
+This endpoint fetches 5 random questions from the external API endpoint `https://jservice.io/api/random` and stores them in the database.
+
+### Play Quiz
+
+```
 GET /api/play
+```
+
 This endpoint returns a random question along with its ID. The response will be in the following format:
 
-json
-Copy code
+```json
 {
   "question_id": 1,
   "question": "Who is the founder of SpaceX?"
 }
-Answer Question
-bash
-Copy code
+```
+
+### Answer Question
+
+```
 POST /api/next
+```
+
 This endpoint allows you to submit an answer to a question. The payload should be in the following format:
 
-json
-Copy code
+```json
 {
   "question_id": 1,
   "answer": "Elon Musk"
 }
+```
+
 The response will contain the correct answer to the question and the next question:
 
-json
-Copy code
+```json
 {
   "correct_answer": "Elon Musk",
   "next_question": {
@@ -74,28 +91,43 @@ Copy code
     "question": "In which year did World War II end?"
   }
 }
-Error Handling
+```
+
+## Error Handling
+
 The Quiz API handles errors using appropriate HTTP status codes and error messages in the response body. In case of an error, the response will include an error message explaining the issue.
 
-Examples
+## Examples
+
 Here are some examples to help you understand how to use the Quiz API.
 
-Fetch 5 random questions:
-bash
-Copy code
+1. Fetch 5 random questions:
+
+```
 GET /api/questions
-Play the quiz:
-bash
-Copy code
+```
+
+2. Play the quiz:
+
+```
 GET /api/play
-Answer a question:
-bash
-Copy code
+```
+
+3. Answer a question:
+
+```
 POST /api/next
 
 {
   "question_id": 1,
   "answer": "Elon Musk"
 }
-Contributing
+```
+
+## Contributing
+
 Contributions to the Quiz API are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
+
+## License
+
+The Quiz API is released under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as per the terms of the license.
