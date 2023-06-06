@@ -17,7 +17,7 @@ To get started with the Quiz API, follow the instructions below:
 1. Clone the repository.
 2. Build the project using Maven: `mvn clean install`.
 3. Run the application: `mvn spring-boot:run`.
-4. The API will be accessible at `http://localhost:8080`.
+4. The API will be accessible at `http://localhost:8081`.
 
 ## Authentication
 
