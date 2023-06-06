@@ -9,7 +9,6 @@ Welcome to the API documentation for the Quiz API. This API allows you to fetch 
 - [Error Handling](#error-handling)
 - [Examples](#examples)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Getting Started
 
@@ -127,7 +126,3 @@ POST /api/next
 ## Contributing
 
 Contributions to the Quiz API are welcome! If you have any ideas, suggestions, or bug reports, please open an issue or submit a pull request.
-
-## License
-
-The Quiz API is released under the [MIT License](LICENSE). Feel free to use, modify, and distribute it as per the terms of the license.
